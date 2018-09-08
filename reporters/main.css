@@ -1,0 +1,33 @@
+#HighgroundHTMLReporterTarget {
+    height:100%;
+    width: 350px;
+    background-color: hsla(0, 0%, 9%, 1);
+    color: hsla(224, 65%, 93%, 1);
+    font-size: 10px;
+    position: absolute;
+    right: 0;
+    font-family: 'Lucida Console';
+    top: 0;
+    overflow-y: scroll;
+    padding: 2em;
+}
+
+#HighgroundHTMLReporterTarget .error {
+    color: #ff2871;
+}
+
+div {
+    margin-top: 2px;
+}
+
+.red {
+    color: hsla(0,83%,75%,1);
+}
+
+.yellow {
+    color: hsla(48, 92%, 63%, 1);
+}
+
+.green {
+    color: hsla(92, 29%, 87%, 1);
+}
