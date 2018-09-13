@@ -11,7 +11,7 @@ export async function fit (name,test){
     await it(name,test,2);
 }
 
-export async function xit (name,unfold){
+export async function xit (name,test){
     await it(name,test,-2);
 }
 

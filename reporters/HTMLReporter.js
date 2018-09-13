@@ -5,10 +5,6 @@ import uuid from 'uuid';
 import './main.css';
 
 export class HTMLReporter {
-    constructor(){
-        document.body.innerHTML += `<div id="HighgroundHTMLReporterTarget"/>`;
-        this.target = document.getElementById("HighgroundHTMLReporterTarget");
-    }
 
     StatusToIcon(status){
         switch (status){
@@ -69,6 +65,10 @@ export class HTMLReporter {
     }
 
     update(tree,tests) {
+        if (!this.target) {
+            document.body.innerHTML += `<div id="HighgroundHTMLReporterTarget"/>`;
+            this.target = document.getElementById("HighgroundHTMLReporterTarget");
+        }
         const passedTests = Object.values(tests).filter(t => t.status == Status.PASSED || t.status == Status.SKIPPED);
         const failedTests = Object.values(tests).filter(t => t.status == Status.FAILED);
         const allTests = Object.values(tests);
