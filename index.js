@@ -11,6 +11,6 @@ export const it = Manager.it.bind(Manager);
 // export default Manager;
 export const test = 42;
 
-console.log(`0.0.1`);
+//console.log(`0.0.1`);
 
 // return Manager;

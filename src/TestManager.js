@@ -1,11 +1,12 @@
 import { delay } from './utility'
 import uuid from 'uuid';
-import { iterateTree } from './utility'
+import { iterateTree, iterateSuites, extractSuites } from './utility'
 import { HTMLReporter } from './../reporters/HTMLReporter'
+import { ConsoleReporter } from './../reporters/ConsoleReporter'
 import { Status } from './constants'
 
 export class TestManager {
-    reporters = [ new HTMLReporter() ];
+    reporters = [ (typeof(window) === 'undefined') ? new ConsoleReporter() : new HTMLReporter() ];
     describeQueue = [];
     calledHookRecord = {};
     tree = {suites:[],tests:[]};
@@ -75,17 +76,22 @@ export class TestManager {
         }
     }
 
-    updateReporters(){
-        this.reporters.forEach(reporter=>reporter.update(this.tree,this.tests));
+    async updateReporters(){
+        //console.log("???");
+        let suites = extractSuites(...this.tree.suites);
+        // let suites = Array.from(iterateSuites(this.tree.suites));
+        console.log("Suites?",suites);
+        this.reporters.forEach(reporter=>reporter.update(suites,this.tests ));
     }
 
 
 
     async runTest(id) {
+        console.log("Running test",id);
         const test = this.tests[id];
         if (test.status === Status.PENDING) {
             test.status = Status.RUNNING;
-            this.updateReporters();
+            await this.updateReporters();
             await this.callHooks(test.before);
             try {
                 await test.fn();
@@ -99,7 +105,7 @@ export class TestManager {
             test.status = Status.SKIPPED;
         }
 
-        this.updateReporters();
+        await this.updateReporters();
         return test;
     }
 

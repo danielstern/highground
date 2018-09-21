@@ -14,11 +14,12 @@
         yield* iterateTree(suite.children);
       }
     }
-    function* iterateSuites(suites) {
+    function extractSuites(...suites) {
       for (let suite of suites) {
-        yield suite;
-        yield* iterateSuites(suite.children.suites);
+        suites = [...suites, ...extractSuites(...suite.children.suites)];
       }
+
+      return suites;
     }
 
     function createCommonjsModule(fn, module) {
@@ -262,9 +263,10 @@
       }
     }
 
-    var css = "#HighgroundHTMLReporterTarget {\r\n    height:100%;\r\n    width: 350px;\r\n    background-color: hsla(0, 0%, 9%, 1);\r\n    color: hsla(224, 65%, 93%, 1);\r\n    font-size: 10px;\r\n    position: absolute;\r\n    right: 0;\r\n    font-family: 'Lucida Console';\r\n    top: 0;\r\n    overflow-y: scroll;\r\n    padding: 2em;\r\n}\r\n\r\n#HighgroundHTMLReporterTarget .error {\r\n    color: #ff2871;\r\n}\r\n\r\ndiv {\r\n    margin-top: 2px;\r\n}\r\n\r\n.red {\r\n    color: hsla(0,83%,75%,1);\r\n}\r\n\r\n.yellow {\r\n    color: hsla(48, 92%, 63%, 1);\r\n}\r\n\r\n.green {\r\n    color: hsla(92, 29%, 87%, 1);\r\n}";
+    var css = "#HighgroundHTMLReporterTarget {\r\n    height:100%;\r\n    min-width: 375px;\r\n    background-color: hsla(0, 0%, 9%, 1);\r\n    color: hsla(224, 65%, 93%, 1);\r\n    font-size: 10px;\r\n    position: absolute;\r\n    right: 0;\r\n    font-family: 'Lucida Console';\r\n    top: 0;\r\n    overflow-y: scroll;\r\n    padding: 2em;\r\n}\r\n\r\n#HighgroundHTMLReporterTarget .error {\r\n    color: #ff2871;\r\n}\r\n\r\ndiv {\r\n    margin-top: 2px;\r\n}\r\n\r\n.red {\r\n    color: hsla(0,83%,75%,1);\r\n}\r\n\r\n.yellow {\r\n    color: hsla(48, 92%, 63%, 1);\r\n}\r\n\r\n.green {\r\n    color: hsla(92, 29%, 87%, 1);\r\n}";
     styleInject(css);
 
+    // import { iterateTree, iterateSuites, getAllChildTests } from '../src/utility'
     class HTMLReporter {
       StatusToIcon(status) {
         switch (status) {
@@ -305,49 +307,39 @@
         if (suite.children.tests.find(id => tests[id].status === Status.FAILED)) return Status.FAILED;
         if (suite.children.tests.find(id => tests[id].status === Status.PENDING)) return Status.PENDING;
         return Status.PASSED;
-      }
+      } // GatherUnskippedSuites(tree, tests) {
+      //     let suites = [];
+      //     let skipped = [];
+      //     let testsInTree = [];
+      //
+      //     for (let suite of iterateSuites(tree.suites)) {
+      //         let childTests = getAllChildTests(suite);
+      //         let suiteTestsStatuses = childTests.map(testID=>tests[testID].status);
+      //         (suiteTestsStatuses.find(status=>status !== Status.SKIPPED) ? suites : skipped).push(suite);
+      //     }
+      //     return [suites,skipped];
+      // }
 
-      GetAllChildTests(suite) {
-        // let tests = [...suite.tests];
-        let tests = [];
 
-        for (let treeLevel of iterateTree(suite.children)) {
-          // console.log("Iterating...",treeLevel);
-          tests = [...tests, ...treeLevel.tests];
-        }
+      update(suites, tests) {
+        // return;
+        if (typeof window === 'undefined') return;
 
-        return tests;
-      }
-
-      GatherUnskippedSuites(tree, tests) {
-        let suites = [];
-        let skipped = [];
-
-        for (let suite of iterateSuites(tree.suites)) {
-          let childTests = this.GetAllChildTests(suite);
-          let suiteTestsStatuses = childTests.map(testID => tests[testID].status);
-          (suiteTestsStatuses.find(status => status !== Status.SKIPPED) ? suites : skipped).push(suite);
-        }
-
-        return [suites, skipped];
-      }
-
-      update(tree, tests) {
         if (!this.target) {
           document.body.innerHTML += `<div id="HighgroundHTMLReporterTarget"/>`;
           this.target = document.getElementById("HighgroundHTMLReporterTarget");
         }
 
+        console.log("Updating?", suites, tests);
         const passedTests = Object.values(tests).filter(t => t.status == Status.PASSED || t.status == Status.SKIPPED);
         const failedTests = Object.values(tests).filter(t => t.status == Status.FAILED);
-        const allTests = Object.values(tests);
-        let [suites, skipped] = this.GatherUnskippedSuites(tree, tests);
-        this.target.innerHTML = '';
-        this.target.innerHTML += `<div class='${this.GetSummaryClass(passedTests, failedTests, allTests)}'>${passedTests.length}/${allTests.length}</div>`;
+        const allTests = Object.values(tests); // let [suites, skipped] = this.GatherUnskippedSuites(tree, tests);
 
-        if (skipped.length > 0) {
-          this.target.innerHTML += `<p>${skipped.length} Skipped Suites Hidden</p>`;
-        }
+        this.target.innerHTML = '';
+        this.target.innerHTML += `<div class='${this.GetSummaryClass(passedTests, failedTests, allTests)}'>${passedTests.length}/${allTests.length}</div>`; // if (skipped.length > 0) {
+        //     this.target.innerHTML += `<p>${skipped.length} Skipped Suites Hidden</p>`
+        // };
+        // for (let suite of (skipped.length <= 5) ? [...skipped,...suites] : suites) {
 
         for (let suite of suites) {
           this.target.innerHTML += `<div ${this.Indent(suite)}>• ${suite.name} ${this.StatusToIcon(this.GetSuiteSummary(suite, tests))}</div>`;
@@ -363,9 +355,38 @@
                 </div>`;
 
             if (test.error) {
-              this.target.innerHTML += `<p class="red" ${this.Indent(suite, 1)}>${test.error} <code>${test.error.stack}</code>$</p>`;
+              this.target.innerHTML += `<pre class="red" ${this.Indent(suite, 1)}>${test.error.stack} 
+<!--<code>${test.error.stack}</code>-->
+</pre>`;
             }
           }
+        }
+
+        console.log(this.target.innerHTML);
+      }
+
+    }
+
+    class ConsoleReporter {
+      update(suites, tests) {
+        console.clear();
+
+        for (let suite of suites) {
+          console.info(suite.name);
+          console.group();
+
+          for (let id of suite.children.tests) {
+            let test = tests[id];
+            console.info(test.name, test.status);
+
+            if (test.status == Status.FAILED) {
+              console.group();
+              console.error(test.error.message);
+              console.groupEnd();
+            }
+          }
+
+          console.groupEnd();
         }
       }
 
@@ -373,7 +394,7 @@
 
     class TestManager {
       constructor(init = true) {
-        this.reporters = [new HTMLReporter()];
+        this.reporters = [typeof window === 'undefined' ? new ConsoleReporter() : new HTMLReporter()];
         this.describeQueue = [];
         this.calledHookRecord = {};
         this.tree = {
@@ -453,16 +474,21 @@
         }
       }
 
-      updateReporters() {
-        this.reporters.forEach(reporter => reporter.update(this.tree, this.tests));
+      async updateReporters() {
+        //console.log("???");
+        let suites = extractSuites(...this.tree.suites); // let suites = Array.from(iterateSuites(this.tree.suites));
+
+        console.log("Suites?", suites);
+        this.reporters.forEach(reporter => reporter.update(suites, this.tests));
       }
 
       async runTest(id) {
+        console.log("Running test", id);
         const test = this.tests[id];
 
         if (test.status === Status.PENDING) {
           test.status = Status.RUNNING;
-          this.updateReporters();
+          await this.updateReporters();
           await this.callHooks(test.before);
 
           try {
@@ -478,7 +504,7 @@
           test.status = Status.SKIPPED;
         }
 
-        this.updateReporters();
+        await this.updateReporters();
         return test;
       }
 
@@ -541,8 +567,8 @@
     const fit = Manager.fit.bind(Manager);
     const it = Manager.it.bind(Manager); // export default Manager;
 
-    const test = 42;
-    console.log(`0.0.1`); // return Manager;
+    const test = 42; //console.log(`0.0.1`);
+    // return Manager;
 
     exports.describe = describe;
     exports.fdescribe = fdescribe;

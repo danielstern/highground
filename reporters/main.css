@@ -1,6 +1,6 @@
 #HighgroundHTMLReporterTarget {
     height:100%;
-    width: 350px;
+    min-width: 375px;
     background-color: hsla(0, 0%, 9%, 1);
     color: hsla(224, 65%, 93%, 1);
     font-size: 10px;

@@ -1,7 +1,5 @@
-import { iterateTree, iterateSuites } from '../src/utility'
+// import { iterateTree, iterateSuites, getAllChildTests } from '../src/utility'
 import { Status } from '../src/constants';
-
-import uuid from 'uuid';
 import './main.css';
 
 export class HTMLReporter {
@@ -41,44 +39,37 @@ export class HTMLReporter {
         return Status.PASSED;
     }
 
-    GetAllChildTests(suite){
-        // let tests = [...suite.tests];
-        let tests = [];
-        for (let treeLevel of iterateTree(suite.children)) {
-            // console.log("Iterating...",treeLevel);
-            tests = [...tests,...treeLevel.tests];
-        }
-        return tests;
-    }
+    // GatherUnskippedSuites(tree, tests) {
+    //     let suites = [];
+    //     let skipped = [];
+    //     let testsInTree = [];
+    //
+    //     for (let suite of iterateSuites(tree.suites)) {
+    //         let childTests = getAllChildTests(suite);
+    //         let suiteTestsStatuses = childTests.map(testID=>tests[testID].status);
+    //         (suiteTestsStatuses.find(status=>status !== Status.SKIPPED) ? suites : skipped).push(suite);
+    //     }
+    //     return [suites,skipped];
+    // }
 
-    GatherUnskippedSuites(tree, tests) {
-        let suites = [];
-        let skipped = [];
-        let testsInTree = [];
-
-        for (let suite of iterateSuites(tree.suites)) {
-            let childTests = this.GetAllChildTests(suite);
-            let suiteTestsStatuses = childTests.map(testID=>tests[testID].status);
-            (suiteTestsStatuses.find(status=>status !== Status.SKIPPED) ? suites : skipped).push(suite);
-        }
-        return [suites,skipped];
-    }
-
-    update(tree,tests) {
+    update(suites,tests) {
+        // return;
+        if (typeof(window) === 'undefined') return;
         if (!this.target) {
             document.body.innerHTML += `<div id="HighgroundHTMLReporterTarget"/>`;
             this.target = document.getElementById("HighgroundHTMLReporterTarget");
         }
+        console.log("Updating?",suites,tests);
         const passedTests = Object.values(tests).filter(t => t.status == Status.PASSED || t.status == Status.SKIPPED);
         const failedTests = Object.values(tests).filter(t => t.status == Status.FAILED);
         const allTests = Object.values(tests);
 
-        let [suites, skipped] = this.GatherUnskippedSuites(tree, tests);
+        // let [suites, skipped] = this.GatherUnskippedSuites(tree, tests);
         this.target.innerHTML = '';
         this.target.innerHTML += `<div class='${this.GetSummaryClass(passedTests, failedTests, allTests)}'>${passedTests.length}/${allTests.length}</div>`;
-        if (skipped.length > 0) {
-            this.target.innerHTML += `<p>${skipped.length} Skipped Suites Hidden</p>`
-        };
+        // if (skipped.length > 0) {
+        //     this.target.innerHTML += `<p>${skipped.length} Skipped Suites Hidden</p>`
+        // };
         // for (let suite of (skipped.length <= 5) ? [...skipped,...suites] : suites) {
         for (let suite of suites) {
             this.target.innerHTML += `<div ${this.Indent(suite)}>• ${suite.name} ${this.StatusToIcon(this.GetSuiteSummary(suite, tests))}</div>`;
@@ -93,9 +84,12 @@ export class HTMLReporter {
                     ${this.StatusToIcon(test.status)}
                 </div>`;
                 if (test.error) {
-                    this.target.innerHTML += `<p class="red" ${this.Indent(suite, 1)}>${test.error} <code>${test.error.stack}</code>$</p>`
+                    this.target.innerHTML += `<pre class="red" ${this.Indent(suite, 1)}>${test.error.stack} 
+<!--<code>${test.error.stack}</code>-->
+</pre>`
                 }
             }
         }
+        console.log(this.target.innerHTML);
     }
 }

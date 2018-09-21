@@ -1,5 +1,5 @@
-import { describe, it, beforeEach } from './dist/bundle'; // prod build <-- the one that is actually used
-// import { describe, it, beforeEach } from './index.js'; // dev build
+// import { describe, it, beforeEach } from './dist/bundle'; // prod build <-- the one that is actually used
+import { describe, it, beforeEach } from './index.js'; // dev build
 import { TestManager } from './src/TestManager'
 import { expect } from 'chai';
 
@@ -40,4 +40,6 @@ describe("Highground",()=>{
     })
 });
 
-describe("Reporters");
+// describe("Reporters");
+
+import './examples/node-es6';
