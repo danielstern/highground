@@ -4,7 +4,6 @@ export const delay = (duration)=>{
     return new Promise(resolve=>setTimeout(resolve,duration));
 };
 
-// No longer needed?
 export function* iterateTree(treeLevel) {
     yield treeLevel;
     for (let suite of treeLevel.suites) {

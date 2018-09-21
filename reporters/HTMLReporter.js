@@ -1,5 +1,5 @@
-import { iterateTree, iterateSuites } from '../utility'
-import { Status } from '../constants';
+import { iterateTree, iterateSuites } from '../src/utility'
+import { Status } from '../src/constants';
 
 import uuid from 'uuid';
 import './main.css';
@@ -13,7 +13,7 @@ export class HTMLReporter {
             case Status.PENDING:
                 return `…`;
             case Status.SKIPPED:
-                return `∪`;
+                return `(SKIPPED)`;
             case Status.FAILED:
                 return `✘`;
             case Status.RUNNING:
@@ -76,7 +76,10 @@ export class HTMLReporter {
         let [suites, skipped] = this.GatherUnskippedSuites(tree, tests);
         this.target.innerHTML = '';
         this.target.innerHTML += `<div class='${this.GetSummaryClass(passedTests, failedTests, allTests)}'>${passedTests.length}/${allTests.length}</div>`;
-        this.target.innerHTML += `<p>${skipped.length} Skipped Suites Hidden</p>`
+        if (skipped.length > 0) {
+            this.target.innerHTML += `<p>${skipped.length} Skipped Suites Hidden</p>`
+        };
+        // for (let suite of (skipped.length <= 5) ? [...skipped,...suites] : suites) {
         for (let suite of suites) {
             this.target.innerHTML += `<div ${this.Indent(suite)}>• ${suite.name} ${this.StatusToIcon(this.GetSuiteSummary(suite, tests))}</div>`;
             for (let id of suite.children.tests) {

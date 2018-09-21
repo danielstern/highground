@@ -1,14 +1,14 @@
 {
   "name": "highground",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.1-alpha",
+  "description": "Modern JavaScript Testing",
+  "main": "dist/bundle.js",
   "scripts": {
-    "start": "",
-    "test": "babel-node index.spec"
+    "postinstall":"webpack",
+    "start": "webpack-dev-server"
   },
   "keywords": [],
-  "author": "",
+  "author": "Code Whisperer",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -16,19 +16,16 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/register": "^7.0.0",
     "babel-loader": "^8.0.0",
-    "babel-watch": "^2.0.7",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "chai": "^4.1.2",
+    "css-loader": "^1.0.0",
     "html-webpack-plugin": "^3.2.0",
+    "regenerator-runtime": "^0.12.1",
+    "style-loader": "^0.23.0",
     "webpack": "^4.17.1",
     "webpack-dev-server": "^3.1.6"
   },
   "dependencies": {
-    "@babel/preset-react": "^7.0.0",
-    "chai": "^4.1.2",
-    "colors": "^1.3.2",
-    "css-loader": "^1.0.0",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "style-loader": "^0.23.0",
     "uuid": "^3.3.2"
   }
 }

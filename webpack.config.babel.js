@@ -1,9 +1,16 @@
 import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
     mode: 'development',
     entry: {
-        bundle:path.resolve(__dirname),
+        bundle:[
+            'regenerator-runtime/runtime',
+            path.resolve(__dirname)
+        ],
+        tests:[
+            path.resolve(__dirname,'index.spec.js')
+        ]
     },
     output: {
         path: path.resolve(__dirname,'dist'),
@@ -13,6 +20,9 @@ export default {
     resolve: {
         extensions: ['.js','.jsx']
     },
+    plugins:[
+        new HtmlWebpackPlugin()
+    ],
     module: {
         rules: [{
             test: /\.jsx?/,
