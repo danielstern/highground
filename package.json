@@ -1,16 +1,15 @@
 {
   "name": "highground",
-  "version": "0.0.2-alpha",
+  "version": "0.0.3-alpha",
   "description": "Modern JavaScript Testing",
   "main": "dist/bundle.js",
   "scripts": {
-    "build":"webpack",
+    "build": "rollup -c",
     "start": "webpack-dev-server"
   },
   "keywords": [],
   "author": "Code Whisperer",
   "license": "ISC",
-
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/node": "^7.0.0",
@@ -22,6 +21,11 @@
     "css-loader": "^1.0.0",
     "html-webpack-plugin": "^3.2.0",
     "regenerator-runtime": "^0.12.1",
+    "rollup": "^0.66.2",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-commonjs": "^9.1.8",
+    "rollup-plugin-postcss": "^1.6.2",
+    "rollup-plugin-node-resolve": "^3.4.0",
     "style-loader": "^0.23.0",
     "webpack": "^4.17.1",
     "webpack-dev-server": "^3.1.6"

@@ -1,4 +1,3 @@
-export { expect } from 'chai';
 export { delay } from './src/utility';
 import { TestManager } from './src/TestManager'
 
