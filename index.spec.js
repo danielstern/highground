@@ -1,6 +1,17 @@
-import { describe, it, beforeEach } from './';
+// import { describe, it, beforeEach } from './dist/bundle';
+// import { describe, it, beforeEach } from './index.js';
+import * as bluh from './';
+// import * as bluh from './dist/bundle';
+// console.log("What?",bluh);
+// import * as blurg from './';
+// import * as churg from './index.spec'
+// let flurg = require('./');
+// let nurg = require('./dist/bundle');
 import { TestManager } from './src/TestManager'
 import { expect } from 'chai';
+
+console.log("Describe?",describe);
+// console.log("Imported???",blurg,flurg,nurg,churg);;
 
 describe("Describing things",()=>{
     let manager;

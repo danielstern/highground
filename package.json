@@ -10,6 +10,7 @@
   "keywords": [],
   "author": "Code Whisperer",
   "license": "ISC",
+
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/node": "^7.0.0",
