@@ -40,6 +40,4 @@ describe("Highground",()=>{
     })
 });
 
-// describe("Reporters");
-
 import './examples/node-es6';
