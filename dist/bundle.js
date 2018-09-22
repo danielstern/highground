@@ -330,7 +330,6 @@
           this.target = document.getElementById("HighgroundHTMLReporterTarget");
         }
 
-        console.log("Updating?", suites, tests);
         const passedTests = Object.values(tests).filter(t => t.status == Status.PASSED || t.status == Status.SKIPPED);
         const failedTests = Object.values(tests).filter(t => t.status == Status.FAILED);
         const allTests = Object.values(tests); // let [suites, skipped] = this.GatherUnskippedSuites(tree, tests);
@@ -361,8 +360,6 @@
             }
           }
         }
-
-        console.log(this.target.innerHTML);
       }
 
     }
@@ -475,15 +472,11 @@
       }
 
       async updateReporters() {
-        //console.log("???");
-        let suites = extractSuites(...this.tree.suites); // let suites = Array.from(iterateSuites(this.tree.suites));
-
-        console.log("Suites?", suites);
+        let suites = extractSuites(...this.tree.suites);
         this.reporters.forEach(reporter => reporter.update(suites, this.tests));
       }
 
       async runTest(id) {
-        console.log("Running test", id);
         const test = this.tests[id];
 
         if (test.status === Status.PENDING) {
