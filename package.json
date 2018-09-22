@@ -5,8 +5,7 @@
   "main": "dist/bundle.js",
   "scripts": {
     "build": "rollup -c",
-    "start": "webpack-dev-server",
-    "publish": "npm run build && git commit -a -m \":cat:\" && git push"
+    "start": "webpack-dev-server"
   },
   "keywords": [],
   "author": "Code Whisperer",
