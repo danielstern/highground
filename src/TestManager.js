@@ -77,17 +77,13 @@ export class TestManager {
     }
 
     async updateReporters(){
-        //console.log("???");
         let suites = extractSuites(...this.tree.suites);
-        // let suites = Array.from(iterateSuites(this.tree.suites));
-        console.log("Suites?",suites);
         this.reporters.forEach(reporter=>reporter.update(suites,this.tests ));
     }
 
 
 
     async runTest(id) {
-        console.log("Running test",id);
         const test = this.tests[id];
         if (test.status === Status.PENDING) {
             test.status = Status.RUNNING;

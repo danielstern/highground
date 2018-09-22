@@ -59,7 +59,6 @@ export class HTMLReporter {
             document.body.innerHTML += `<div id="HighgroundHTMLReporterTarget"/>`;
             this.target = document.getElementById("HighgroundHTMLReporterTarget");
         }
-        console.log("Updating?",suites,tests);
         const passedTests = Object.values(tests).filter(t => t.status == Status.PASSED || t.status == Status.SKIPPED);
         const failedTests = Object.values(tests).filter(t => t.status == Status.FAILED);
         const allTests = Object.values(tests);
@@ -90,6 +89,5 @@ export class HTMLReporter {
                 }
             }
         }
-        console.log(this.target.innerHTML);
     }
 }
