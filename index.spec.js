@@ -1,5 +1,4 @@
-// import { describe, it, beforeEach } from './dist/bundle'; // prod build <-- the one that is actually used
-import { describe, it, beforeEach } from './index.js'; // dev build
+import { describe, it, beforeEach } from 'highground'; // dev build
 import { TestManager } from './src/TestManager'
 import { expect } from 'chai';
 
@@ -27,7 +26,6 @@ describe("Highground",()=>{
             await manager.take();
             expect(manager.tree.suites[0].name).to.equal(name);
             expect(manager.tree.suites[0].children.suites[0].name).to.equal(name2);
-
         });
     });
 
