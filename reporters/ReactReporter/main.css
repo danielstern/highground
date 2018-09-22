@@ -1,4 +1,4 @@
-#HighgroundHTMLReporterTarget {
+#HighgroundReactReporterTarget {
     height:100%;
     min-width: 375px;
     background-color: hsla(0, 0%, 9%, 1);
@@ -12,7 +12,7 @@
     padding: 2em;
 }
 
-#HighgroundHTMLReporterTarget .error {
+#HighgroundReactReporterTarget .error {
     color: #ff2871;
 }
 

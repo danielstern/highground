@@ -1,11 +1,12 @@
 {
   "name": "highground",
-  "version": "0.2.1-alpha",
+  "version": "0.3.0-alpha",
   "description": "Modern JavaScript Testing",
   "main": "dist/bundle.js",
   "scripts": {
     "build": "rollup -c",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "distribute": "npm run build && git commit -a -m \":donkey:\" && git push && npm publish"
   },
   "keywords": [],
   "author": "Code Whisperer",

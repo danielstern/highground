@@ -1,12 +1,14 @@
 import { delay } from './utility'
+import { debounce } from 'lodash';
 import uuid from 'uuid';
 import { iterateTree, iterateSuites, extractSuites } from './utility'
-import { HTMLReporter } from './../reporters/HTMLReporter'
+import { ReactReporter } from './../reporters/ReactReporter'
+// import { HTMLReporter } from './../reporters/HTMLReporter'
 import { ConsoleReporter } from './../reporters/ConsoleReporter'
 import { Status } from './constants'
 
 export class TestManager {
-    reporters = [ (typeof(window) === 'undefined') ? new ConsoleReporter() : new HTMLReporter() ];
+    reporters = [ (typeof(window) === 'undefined') ? new ConsoleReporter() : new ReactReporter() ];
     describeQueue = [];
     calledHookRecord = {};
     tree = {suites:[],tests:[]};
@@ -20,6 +22,7 @@ export class TestManager {
 
     async take () {
         await delay();
+        await this.updateReporters();
         await this.exhaustDescribeQueue();
         for (let treeLevel of iterateTree(this.tree)) {
             for (let id of treeLevel.tests) {
@@ -81,6 +84,7 @@ export class TestManager {
         let suites = Array.from(iterateSuites(this.tree.suites));
         // let suites = extractSuites(...this.tree.suites);
         this.reporters.forEach(reporter=>reporter.update(suites,this.tests ));
+        await delay(1);
     }
 
 

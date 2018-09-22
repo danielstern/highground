@@ -10,6 +10,10 @@ export default {
     output:{
         name:'highground'
     },
+    external:[
+        // 'react',
+        // 'react-dom'
+    ],
     plugins: [
         babel({
             exclude: 'node_modules/**',

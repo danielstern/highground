@@ -2,6 +2,8 @@ import { describe, it, beforeEach } from 'highground'; // dev build
 import { TestManager } from './src/TestManager'
 import { expect } from 'chai';
 
+it("Orphan Test [Not run]");
+
 describe("Highground",()=>{
     let manager;
     beforeEach(()=>{
@@ -9,7 +11,13 @@ describe("Highground",()=>{
         manager.reporters = [];
     });
 
+
+
     describe("Creating Test Suites",()=>{
+
+        describe("An empty suite [Disappear after solving the task at hand]");
+        it("An empty test [You bet!]");
+
 
         it("One test suite [Heisenberg's Uncertainty Test]",()=>{
             let name = `Heisenberg's Uncertainty Test`;
@@ -39,3 +47,5 @@ describe("Highground",()=>{
 });
 
 import './examples/node-es6';
+import './examples/node-es5';
+import './examples/many';
