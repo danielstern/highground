@@ -15,6 +15,7 @@ export function extractSuites(...suites){
     }
     return suites;
 }
+
 export function* iterateSuites(suites) {
     for (let suite of suites) {
         yield suite;

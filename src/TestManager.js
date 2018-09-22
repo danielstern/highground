@@ -77,7 +77,9 @@ export class TestManager {
     }
 
     async updateReporters(){
-        let suites = extractSuites(...this.tree.suites);
+        // TODO - iterateSuites puts the suites in the right order, but extractSuites has simpler structure
+        let suites = Array.from(iterateSuites(this.tree.suites));
+        // let suites = extractSuites(...this.tree.suites);
         this.reporters.forEach(reporter=>reporter.update(suites,this.tests ));
     }
 
