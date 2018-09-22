@@ -1,6 +1,6 @@
 {
   "name": "highground",
-  "version": "0.1.4-alpha",
+  "version": "0.1.5-alpha",
   "description": "Modern JavaScript Testing",
   "main": "dist/bundle.js",
   "scripts": {
