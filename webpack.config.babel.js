@@ -1,5 +1,4 @@
 import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
     mode: 'development',
@@ -12,6 +11,10 @@ export default {
         path: path.resolve(__dirname,'dist'),
         filename: '[name].js',
         publicPath: '/',
+    },
+    externals: {
+        React:'react',
+        ReactDOM:'react-dom',
     },
     devServer:{
         open:true,

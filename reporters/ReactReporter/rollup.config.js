@@ -4,15 +4,15 @@ import commonjs from 'rollup-plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
 
 export default {
-    entry: 'index.js',
-    dest:'dist/bundle.js',
+    entry: 'ReactReporter.jsx',
+    dest:'bundle.js',
     format:'umd',
     output:{
-        name:'highground'
+        name:'highground-react-reporter'
     },
     external:[
-        // 'react',
-        // 'react-dom'
+        'React',
+        'ReactDOM'
     ],
     plugins: [
         babel({

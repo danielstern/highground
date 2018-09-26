@@ -1,5 +1,4 @@
 import { delay } from './utility'
-import { debounce } from 'lodash';
 import uuid from 'uuid';
 import { iterateTree, iterateSuites, extractSuites } from './utility'
 import { ReactReporter } from './../reporters/ReactReporter'
