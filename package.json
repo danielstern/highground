@@ -5,7 +5,7 @@
   "main": "dist/bundle.js",
   "scripts": {
     "test": "webpack-dev-server --open",
-    "distribute": "npm run build && git commit -a -m \":donkey:\" && git push && npm publish"
+    "distribute": "git commit -a -m \":owl:\" && git push && npm publish"
   },
   "keywords": [],
   "author": "Code Whisperer",
