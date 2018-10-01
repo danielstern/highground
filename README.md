@@ -1,5 +1,5 @@
 # Highground.js [BETA]
-*Highground is in Beta and can be used as a testing framework for your small, one-off or prototype projects. It is not yet recommended for full-scale applications.*
+*Highground is in Beta and can be used as a testing framework for your small, one-off or prototype projects. It is not yet recommended for full-scale applications. The author finds it to be their first choice for ES6 prototyping, and hope you do too.*
 
 > ### ˈhī ˌɡround/
 > 1. Terrain that provides strategic oversight of the surrounding area
@@ -73,3 +73,42 @@ babel-node index.spec.js
 ```
 
 ### Exported Methods
+#### describe(async fn)
+Defines a suite of tests. Skipped if no tests are defined within using *it*.
+```javascript
+import { describe, it } from 'highground';
+describe("A suite",()=>{
+    it("A test",()=>{
+        throw new Error("Welcome to the real world, Summer.")      
+    });
+}) 
+```
+
+
+#### fdescribe(async fn)
+Defines a suite of higher priority.
+#### xdescribe(async fn)
+Defines a suite of lower priority (will usually be skipped.)
+#### it(async fn)
+Defines a test. Test passes if no errors are thrown during its execution, otherwise it fails.
+
+##### fit(async fn)
+Defines a test of higher priority. 
+
+##### xit(async fn)
+Defines a test of lower priority (will usually be skipped.)
+
+```javascript
+import { describe, it } from 'highground';
+describe("A suite",()=>{
+    xit("This test has priority -1 and is skipped",()=>{});
+    it("This test has priority 0 and is skipped, too.",()=>{});
+    fit("This test has priority 1, the highest priority, and is run",()=>{
+        throw new Error("There's a plasma shard in the Abadongo cluster...")
+    });
+    
+    fit("This test has priority 1 as well, and it's also run",()=>{
+        throw new Error("... if I get it, I'll be awesome.")
+    });
+}) 
+```
