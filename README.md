@@ -1,9 +1,17 @@
-# [WIP]
+# Highground.js [BETA]
+*Highground is in Beta and can be used as a testing framework for your small, one-off or prototype projects. It is not yet recommended for full-scale applications.*
 
-# Highground.js [ALPHA]
+> ### ˈhī ˌɡround/
+> 1. Terrain that provides strategic oversight of the surrounding area
+> 2. A position of intellectual, moral or technical superiority
 
-## Get The Highground
+### What is Highground?  
 
+Highground is a fast, easy way to test your ES6 applications. It is inspired by Mocha and Jest, but written for simplicity in ES6.
+
+I used to use Mocha or Jest when testing my small or prototype projects, but was frustrated by their lack of simplicity and native support for ES6. I eventually just started writing my tests in ES6 files and running them myself. 
+ 
+ Enter Highground - the missing link between testing frameworks like Mocha and the most basic of testing methodologies, which is just writing the assertion and hoping it doesn't throw an error [or, when it does throw an error, it indicates to you clearly what changed or went wrong.].
 ## Introduction
 
 Highground.js is a simple testing library.
@@ -15,17 +23,23 @@ Highground.js is a simple testing library.
 - `describe`, `it` and other helpers are added to the scope with `import` statements like everything else, and are not magically inserted
 - Custom reporters allow for more sophisticated feedback, if desired 
 
-### Why Highground?
-Your applications are complex, but your testing framework shouldn't be. By eliminating compatibility with outdated conventions that are common to existing frameworks (mainly, injecting methods into the scope)
-
-
-
-<!-- It is pretty cool how Jest and Mocha inject `describe` and `it`, *etc*, into the scope of your tests. But if you then try to run your tests in a context that is not controlled by these test runners, `describe` and `it` are `undefined`. This is at the core of a troubling divide between the functioning of these test runners-->
-
-<!--All the above libraries are terrific for their respective uses, and all have evolved over long periods of time to support large-scale application development.
  
- 
- As a result, and due to their extensive features and plugin libraries, it may be difficult to quickly use them to test your code in whatever context makes sense - the node command line, an ES6 application, in the browser, on a microcomputer. *etc*-->
+### How is Highground Different from Mocha or Jest?
+
+Mocha and Jest are run from the command line. They use an algorithm to determine what files to run as tests and in what order. They inject methods into the scope like *describe* and *it*, in an opaque process, and the test files are not valid ES6 since the injected methods may or may not be available.
+
+Highground is different - 
+- Highground was written to support **async / await** syntax *from the very beginning*, and it does
+- Highground is **not** run from the command line: You write your tests in normal JavaScript files and then simply run those files using *babel-node* or *webpack*
+- Highground does **not** use an algorithm to determine what files are tests: instead you import any tests you would like to run into a main test file, using normal ES6
+- Highground does **not** support mocking, snapshot testing 
+
+**Note: Jest and Mocha contain many great features that Highground does not. Only choose Highground if you are certain you do not want these features** 
+
+#### Why should I use Highground and not Mocha or Jest?
+If you have never used Jest or Mocha and thought that the way that methods are injected into the scope or outdated and not suitable for ES6, then you do not need Highground - Jest is a better choice.
+
+If you've tried using Mocha or Jest with your ES6 project, only to realize that you need some arcane combination of *babel*, *webpack*, *babel-jest*, etc, as well as verbose and mysterious config file just to even get your tests working, then Highground is for you. It's written in ES6, and **doesn't support ES5**. Highground considers methods appearing in the scope of your application without being imported to be pure nonsense.
 
 ##Usage
 
@@ -58,4 +72,4 @@ describe("A simulation inside a simulation",()=>{
 babel-node index.spec.js
 ```
 
-### Without ES6
+### Exported Methods

@@ -59,7 +59,8 @@ export class TestManager {
             priority,
             error:null,
             after:[...describing.after],
-            status: (priority >= this.maxPriority) && fn ? Status.PENDING : Status.SKIPPED
+            status: fn ? Status.PENDING : Status.SKIPPED,
+            // status: (priority >= this.maxPriority) && fn ? Status.PENDING : Status.SKIPPED
         };
 
         describing.children.tests.push(test.id);
@@ -90,6 +91,9 @@ export class TestManager {
 
     async runTest(id) {
         const test = this.tests[id];
+        if (test.priority < this.maxPriority) {
+            test.status = `SKIPPED`;
+        }
         if (test.status === Status.PENDING) {
             test.status = Status.RUNNING;
             await this.updateReporters();
