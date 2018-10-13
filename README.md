@@ -51,21 +51,25 @@ npm install --save-dev highground
 ```javascript
 //index.spec.js
 import { describe, it } from 'highground';
-describe("A simulation inside a simulation",()=>{
-    let world = {
-        world: {
-            world:true
-        }
-    };
+describe("A simulation inside a simulation", () => {
+  let world = {
+      world: {
+          world: true
+      }
+  };
     
-  it("Should be inside another simulation [Passing Test]",()=>{
-      if (!world.world.world) throw new Error();      
+  it("Should be inside another simulation [Passing Test]", () => {
+      if (!world.world.world) {
+        throw new Error();      
+      }
   });
     
-  it("But inside that simulation should be another simulation [Failing Test]",()=>{
-      if (!world.world.world.world) throw new Error();
-  })
-}) 
+  it("But inside that simulation should be another simulation [Failing Test]", () => {
+      if (!world.world.world.world) {
+        throw new Error();
+      }
+  });
+}); 
 ```
 
 ```
@@ -77,11 +81,11 @@ babel-node index.spec.js
 Defines a suite of tests. Skipped if no tests are defined within using *it*.
 ```javascript
 import { describe, it } from 'highground';
-describe("A suite",()=>{
-    it("A test",()=>{
-        throw new Error("Welcome to the real world, Summer.")      
+describe("A suite", () => {
+    it("A test", () => {
+        throw new Error("Welcome to the real world, Summer.");      
     });
-}) 
+}); 
 ```
 
 
