@@ -100,15 +100,15 @@ Defines a test of lower priority (will usually be skipped.)
 
 ```javascript
 import { describe, it } from 'highground';
-describe("A suite",()=>{
-    xit("This test has priority -1 and is skipped",()=>{});
-    it("This test has priority 0 and is skipped, too.",()=>{});
-    fit("This test has priority 1, the highest priority, and is run",()=>{
-        throw new Error("There's a plasma shard in the Abadongo cluster...")
+describe("A suite", () => {
+    xit("This test has priority -1 and is skipped", () => {});
+    it("This test has priority 0 and is skipped, too.", () => {});
+    fit("This test has priority 1, the highest priority, and is run", () => {
+        throw new Error("There's a plasma shard in the Abadongo cluster...");
     });
     
-    fit("This test has priority 1 as well, and it's also run",()=>{
-        throw new Error("... if I get it, I'll be awesome.")
+    fit("This test has priority 1 as well, and it's also run", () => {
+        throw new Error("... if I get it, I'll be awesome.");
     });
-}) 
+});
 ```
