@@ -1,5 +1,8 @@
-export { delay } from './src/utility';
+// export { delay } from './src/utility';
+import { delay as _delay} from './src/utility';
 import { TestManager } from './src/TestManager'
+
+export const delay = _delay;
 
 /*
     The test manager is a class which orchestrates a suite of describe and it statements.
