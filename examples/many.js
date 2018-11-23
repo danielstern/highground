@@ -1,4 +1,5 @@
-import { describe, it, delay, fdescribe } from 'highground';
+import { describe, it, fdescribe } from 'highground';
+import { delay } from '../src/utility';
 
 /* This test is used to verify your reporter can handle a large volume of tests */
 let count = 0x0f;
