@@ -55,5 +55,4 @@ describe("Highground",()=>{
 });
 //
 import './examples/node-es6';
-import './examples/node-es5';
 import './examples/many';

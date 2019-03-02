@@ -5,6 +5,7 @@
   "main": "dist/bundle.js",
   "scripts": {
     "test": "webpack-dev-server --open",
+    "build": "webpack",
     "distribute": "git commit -a -m \":owl:\" && git push && npm publish"
   },
   "keywords": [],
