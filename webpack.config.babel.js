@@ -5,6 +5,9 @@ export default {
     entry: {
         tests:[
             path.resolve(__dirname,'index.spec.js')
+        ],
+        main:[
+            path.resolve(__dirname,'index.js')
         ]
     },
     output: {
