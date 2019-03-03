@@ -14,6 +14,8 @@ export default {
         path: path.resolve(__dirname,'dist'),
         filename: '[name].js',
         publicPath: '/',
+        library:'highground',
+        libraryTarget:'commonjs2',
     },
     externals: {
         React:'react',
