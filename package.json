@@ -1,12 +1,12 @@
 {
   "name": "highground",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Modern JavaScript Testing",
   "main": "dist/bundle.js",
   "scripts": {
     "test": "webpack-dev-server --open",
     "build": "webpack",
-    "distribute": "npm version patch && webpack && git commit -a -m \":owl:\" && git push && npm publish"
+    "distribute": "git commit -a -m \":owl:\" && npm version patch && webpack && git push && npm publish"
   },
   "keywords": [],
   "author": "Code Whisperer",
