@@ -2,7 +2,7 @@
   "name": "highground",
   "version": "1.0.7",
   "description": "Modern JavaScript Testing",
-  "main": "dist/bundle.js",
+  "main": "dist/main.js",
   "scripts": {
     "test": "webpack-dev-server --open",
     "build": "webpack",
