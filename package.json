@@ -1,6 +1,6 @@
 {
   "name": "highground",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Modern JavaScript Testing",
   "main": "dist/main.js",
   "scripts": {
